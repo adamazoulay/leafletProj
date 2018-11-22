@@ -1,0 +1,55 @@
+---
+title: ""
+author: "Adam Azoulay"
+date: "November 21, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Leaflet Project (November 21st, 2018)
+
+For this project, I decided to map the locations of the hometowns of all players from the Toronto Maple Leafs, an NHL hockey team. First we need to find a list of all active members on the roster. The most recent list is located on Wikipedia [here](https://en.wikipedia.org/wiki/Template:Toronto_Maple_Leafs_roster).
+
+Let's go through the list and adding all the details to a data frame, in alphabetical order.
+
+```{r}
+df <- data.frame(lat = c(56.138611, 43.7, 44.05, 53.533333,
+                         44.983333, 45.583333, 41.764167,
+                         44.915537, 43.7, 60.674722, 42.9837,
+                         62.8925, 44.3, 64.883333, 48.716667,
+                         50.288056, 43.876667, 37.78, 34.189444,
+                         55.82036, 49.366667, 41.892222, 43.6,
+                         55.75),
+                 lon = c(8.989722, -79.4, -79.466667, -113.5,
+                         -93.266667, -73.75, -72.4375, -93.589409,
+                         -79.4, 17.141667, -81.2497, 27.678333,
+                         -79.583333, 20.8, 21.25, -107.793889,
+                         -79.263333, -121.978056, -118.875,
+                         37.33017, -123.166667, -87.943889,
+                         -79.65, 37.616667))
+playerNames <-  c("Frederik Andersen", "Connor Brown",
+                  "Travis Dermott", "Tyler Ennis",
+                  "Jake Gardiner", "Frederik Gauthier",
+                  "Ron Hainsey", "Justin Holl", "Zach Hyman",
+                  "Andreas Johnsson", "Nazem Kadri",
+                  "Kasperi Kapanen", "Josh Leivo", 
+                  "Par Lindholm", "Martin Marincin",
+                  "Patrick Marleau", "Mitch Marner", 
+                  "Auston Matthews", "Trevor Moore", 
+                  "Igor Ozhiganov", "Morgan Rielly",
+                  "Garret Sparks", "John Tavares",
+                  "Nikita Zaitsev")
+```
+
+``` {r, echo = FALSE}
+library(leaflet)
+df %>% 
+    leaflet() %>% 
+    addTiles() %>% 
+    addMarkers(popup = playerNames, clusterOptions = markerClusterOptions())
+```
+
+We can see the majority come from North America, and Canada in particular.
